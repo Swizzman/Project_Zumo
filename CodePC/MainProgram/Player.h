@@ -1,12 +1,14 @@
 #pragma once
 #include "GameEntity.h"
+#include <cmath>
 class Player :
 	public GameEntity
 {
 private:
+	sf::Mouse mouse;
 public:
-	Player();
-	// Inherited via GameEntity
-	virtual void move() override;
+	Player(std::string texture);
+
+	void rotate();
 };
 
