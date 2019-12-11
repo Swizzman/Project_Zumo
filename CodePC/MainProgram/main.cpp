@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "game.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "sfml-window-d.lib")
@@ -14,7 +15,8 @@
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	
+	Game game;
+	game.run();
 	(void) getchar();
 	return 0;
 }

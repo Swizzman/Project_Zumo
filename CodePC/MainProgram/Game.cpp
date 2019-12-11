@@ -9,8 +9,15 @@ Game::~Game()
 {
 }
 
-void Game::initialize()
+
+
+void Game::run()
 {
+	while (window.isOpen())
+	{
+		update();
+		render();
+	}
 }
 
 State Game::update()
@@ -20,8 +27,7 @@ State Game::update()
 
 void Game::render()
 {
+	window.clear();
+	window.display();
 }
 
-void Game::initialize()
-{
-}
