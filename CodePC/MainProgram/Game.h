@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #include "Player.h"
 #include "Ball.h"
 #include "GameState.h"
@@ -12,6 +13,7 @@ private:
 	Ball** ballArr;
 	int nrOfBalls;
 	int capacity;
+	bool gameRunning;
 
 
 public:

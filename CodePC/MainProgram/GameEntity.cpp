@@ -31,6 +31,11 @@ void GameEntity::setRotation(float angle)
 	this->sprite.setRotation(angle);
 }
 
+float GameEntity::getRotation() const
+{
+	return this->sprite.getRotation();
+}
+
 void GameEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->sprite, sf::RenderStates::Default);

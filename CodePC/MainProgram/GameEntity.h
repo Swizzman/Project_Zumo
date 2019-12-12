@@ -13,6 +13,7 @@ public:
 	void setPosition(int x, int y);
 	sf::Vector2f getPosition() const;
 	void setRotation(float angle);
+	float getRotation() const;
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

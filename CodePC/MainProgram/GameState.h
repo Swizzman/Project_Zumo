@@ -5,6 +5,8 @@
 class GameState
 {
 protected:
+	const int WIDTH = 1000;
+	const int HEIGHT = 1000;
 	sf::RenderWindow window;
 public:
 	GameState();
