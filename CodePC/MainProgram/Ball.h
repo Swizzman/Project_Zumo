@@ -5,5 +5,7 @@ class Ball :
 {
 private:
 public:
+	Ball(std::string texture);
+	virtual ~Ball();
 };
 

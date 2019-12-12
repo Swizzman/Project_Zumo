@@ -2,7 +2,7 @@
 
 GameEntity::GameEntity(std::string texture)
 {
-	this->texture.loadFromFile("../bin/images/" + texture);
+	this->texture.loadFromFile("../images/" + texture);
 	this->sprite.setTexture(this->texture);
 }
 

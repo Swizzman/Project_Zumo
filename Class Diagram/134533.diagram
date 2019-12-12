@@ -1,0 +1,16 @@
+format 222
+
+classcanvas 128005 class_ref 134661 // Game
+  classdiagramsettings member_max_width 0 end
+  xyzwh 291 158 2000 147 221
+end
+classcanvas 128133 class_ref 134789 // Ball
+  classdiagramsettings member_max_width 0 end
+  xyzwh 570 202 2000 135 103
+end
+relationcanvas 128901 relation_ref 134789 // <composition>
+  from ref 128133 z 2001 to ref 128005
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

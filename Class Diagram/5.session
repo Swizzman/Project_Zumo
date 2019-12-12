@@ -1,0 +1,12 @@
+window_sizes 1800 910 450 1345 760 104
+
+diagrams
+  active  classdiagram_ref 134533 // Project Zumo
+    1076 608 100 A4 0 0
+end
+show_stereotypes
+selected attribute_ref 134533 // speed
+open
+  class_ref 134789 // Ball
+end
+end

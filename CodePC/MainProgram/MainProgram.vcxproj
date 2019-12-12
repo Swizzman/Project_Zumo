@@ -38,7 +38,7 @@
     <ProjectGuid>{BFA3F943-8701-4E20-A183-D5C3C8375B61}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Soundex</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>Template</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

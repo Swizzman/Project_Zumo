@@ -1,10 +1,11 @@
 #pragma once
 #include "State.h"
+#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 class GameState
 {
 protected:
-	sf::Window window;
+	sf::RenderWindow window;
 public:
 	GameState();
 	virtual void run() = 0;
