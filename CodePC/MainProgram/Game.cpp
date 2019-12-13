@@ -11,6 +11,11 @@ Game::Game()
 		ballArr[i] = new Ball("Ball.png");
 		nrOfBalls++;
 		ballArr[i]->setNewDest(posHand.getDestPos(ballArr[i]->getReachedDests()));
+		if (i != 0)
+		{
+			ballArr[i]->setPosition(ballArr[i - 1]->getPosition().x - 20, 0);
+		}
+		
 	}
 	player->setPosition(WIDTH / 2, HEIGHT / 2);
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;

@@ -1,7 +1,7 @@
 #include "Ball.h"
 
 Ball::Ball(std::string texture) : GameEntity(texture), reacheadDests(0)
-, xSpeed(0), ySpeed(0),movingSpeed(4), lerpMod(0.01)
+, xSpeed(0), ySpeed(0),movingSpeed(2), lerpMod(0.01)
 {
 
 }

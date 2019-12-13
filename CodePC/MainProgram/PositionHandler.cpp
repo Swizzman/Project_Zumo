@@ -2,7 +2,7 @@
 
 PositionHandler::PositionHandler()
 {
-	destPos[0] = sf::Vector2f(400,400);
+	destPos[0] = sf::Vector2f(600,0);
 	destPos[1] = sf::Vector2f(600, 400);
 	destPos[2] = sf::Vector2f(0, 400);
 	destPos[3] = sf::Vector2f(0, 400);
