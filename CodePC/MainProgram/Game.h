@@ -6,15 +6,18 @@
 #include "Ball.h"
 #include "GameState.h"
 #include "State.h"
+#include "PositionHandler.h"
 class Game : public GameState
 {
 private:
 	Player* player;
 	Ball** ballArr;
+	PositionHandler posHand;
 	int nrOfBalls;
 	int capacity;
-	bool gameRunning;
-
+	sf::Clock clock;
+	sf::Time timePerFrame;
+	sf::Time elapsedTimeSinceLastUpdate;
 
 public:
 	Game();
@@ -23,7 +26,7 @@ public:
 
 	// Inherited via GameState
 	virtual void render() override;
-
+ 
 	// Inherited via GameState
 	virtual void run() override;
 	virtual State update() override;

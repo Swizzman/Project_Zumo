@@ -4,15 +4,17 @@ Game::Game()
 {
 	this->capacity = 20;
 	this->nrOfBalls = 0;
-	gameRunning = true;
 	player = new Player("player.png");
 	ballArr = new Ball * [capacity] {nullptr};
 	for (int i = 0; i < capacity; i++)
 	{
 		ballArr[i] = new Ball("Ball.png");
 		nrOfBalls++;
+		ballArr[i]->setNewDest(posHand.getDestPos(ballArr[i]->getReachedDests()));
 	}
 	player->setPosition(WIDTH / 2, HEIGHT / 2);
+	elapsedTimeSinceLastUpdate = sf::Time::Zero;
+	timePerFrame = sf::seconds(1 / 60.f);
 }
 
 Game::~Game()
@@ -37,13 +39,38 @@ void Game::run()
 
 State Game::update()
 {
+	State state = State::NO_CHANGE;
+
 	while (window.isOpen())
 	{
-		player->rotate();
-		std::cout << player->getRotation() << std::endl;
-		render();
+		elapsedTimeSinceLastUpdate += clock.restart();
+
+		while (elapsedTimeSinceLastUpdate > timePerFrame)
+		{
+			elapsedTimeSinceLastUpdate -= timePerFrame;
+
+			if (player->getLives() <= 0)
+			{
+				state = State::HIGHSCORE;
+			}
+			else
+			{
+				state = State::NO_CHANGE;
+			}
+			player->rotate(window);
+			for (int i = 0; i < nrOfBalls; i++)
+			{
+
+				if (ballArr[i]->reachedDest())
+				{
+					ballArr[i]->setNewDest(posHand.getDestPos(ballArr[i]->getReachedDests()));
+				}
+				ballArr[i]->moveTowardsDest();
+			}
+			render();
+		}
 	}
-	return State();
+	return state;
 }
 
 void Game::render()

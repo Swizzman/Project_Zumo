@@ -11,9 +11,19 @@ sf::FloatRect GameEntity::getBounds() const
 	return this->sprite.getGlobalBounds();
 }
 
+void GameEntity::move(int speedX, int speedY)
+{
+	this->sprite.move(speedX, speedY);
+}
+
 void GameEntity::setOrigin(int x, int y)
 {
 	this->sprite.setOrigin(x, y);
+}
+
+sf::Vector2f GameEntity::getOrigin() const
+{
+	return this->sprite.getOrigin();
 }
 
 void GameEntity::setPosition(int x, int y)
@@ -29,6 +39,11 @@ sf::Vector2f GameEntity::getPosition() const
 void GameEntity::setRotation(float angle)
 {
 	this->sprite.setRotation(angle);
+}
+
+sf::Vector2f GameEntity::lerp(sf::Vector2f currentPos, sf::Vector2f destPos, float modifier)
+{
+	return currentPos + (destPos - currentPos) * modifier;
 }
 
 float GameEntity::getRotation() const
