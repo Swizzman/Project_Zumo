@@ -2,6 +2,7 @@
 #include "GameEntity.h"
 #include "Ball.h"
 #include <cmath>
+#include <iostream>;
 class Player :
 	public GameEntity
 {
@@ -12,12 +13,13 @@ private:
 	sf::Vector2f offset;
 
 public:
-	Player(std::string texture);
+	Player(int xSize, int ySize);
 	int getLives() const;
 	void recieveBall(Ball* ballPtr);
 	void releaseBall();
 	bool shoot();
 	void rotate(sf::RenderWindow& window);
+	sf::Vector2f getMousePos() const;
 
 };
 

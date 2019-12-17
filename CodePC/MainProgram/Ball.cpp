@@ -11,6 +11,11 @@ void Ball::setNewDest(sf::Vector2f newDest)
 	currentDest = newDest;
 }
 
+sf::Vector2f Ball::lerp(sf::Vector2f& pointA, sf::Vector2f& pointB, float factor)
+{
+	return pointA + (pointB - pointA) * factor;
+}
+
 int Ball::getReachedDests() const
 {
 	return reacheadDests;

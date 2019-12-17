@@ -1,11 +1,12 @@
 #include "Player.h"
 
-Player::Player(std::string texture):GameEntity(texture)
+Player::Player( int xSize, int ySize):GameEntity("player.png")
 {
 	this->shootBall = nullptr;
 	this->lives = 20;
 	this->offset = getPosition() - (sf::Vector2f)mouse.getPosition();
-	setOrigin(getBounds().left + getBounds().width / 2, getBounds().top + getBounds().height / 2);
+	this->setOrigin(getBounds().left + getBounds().width / 2, getBounds().top + getBounds().height / 2);
+	this->setPosition(xSize / 2, ySize / 2);
 }
 
 int Player::getLives() const
@@ -29,6 +30,7 @@ bool Player::shoot()
 	if (shootBall != nullptr && mouse.isButtonPressed(sf::Mouse::Button::Left))
 	{
 		/*Lägg in funktion här*/
+		shootBall->setRotation(0.f);
 		shot = true;
 		releaseBall();
 	}
@@ -39,10 +41,19 @@ bool Player::shoot()
 
 void Player::rotate(sf::RenderWindow &window)
 {
+	this->offset = (sf::Vector2f)mouse.getPosition(window) - getPosition();
+	float rotation = atan2f(offset.y, offset.x) * (180 / 3.14);
 	if (shootBall != nullptr)
 	{
-		shootBall->setPosition(getOrigin().x + getBounds().width / 2, getOrigin().y);
+		shootBall->setPosition(getPosition().x , getPosition().y);
+		shootBall->setRotation(rotation);
 	}
-	this->offset = (sf::Vector2f)mouse.getPosition(window) - getPosition();
-	setRotation(atan2f(offset.y, offset.x) * (180 / 3.14));
+
+	
+	setRotation(rotation);
+}
+
+sf::Vector2f Player::getMousePos() const
+{
+	return (sf::Vector2f)mouse.getPosition();
 }

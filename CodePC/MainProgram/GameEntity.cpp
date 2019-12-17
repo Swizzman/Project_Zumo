@@ -4,6 +4,7 @@ GameEntity::GameEntity(std::string texture)
 {
 	this->texture.loadFromFile("../images/" + texture);
 	this->sprite.setTexture(this->texture);
+	this->setOrigin(0, 0);
 }
 
 sf::FloatRect GameEntity::getBounds() const
@@ -29,6 +30,11 @@ sf::Vector2f GameEntity::getOrigin() const
 void GameEntity::setPosition(int x, int y)
 {
 	this->sprite.setPosition(x, y);
+}
+
+void GameEntity::setPosition(sf::Vector2f position)
+{
+	this->sprite.setPosition(position);
 }
 
 sf::Vector2f GameEntity::getPosition() const

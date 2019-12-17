@@ -6,15 +6,21 @@
 #include "Ball.h"
 #include "GameState.h"
 #include "State.h"
+#include "MenuMode.h"
 #include "PositionHandler.h"
+#include "CollisionHandler.h"
 class Game : public GameState
 {
 private:
 	Player* player;
+	Ball* playerBall;
 	Ball** ballArr;
 	PositionHandler posHand;
+	CollisionHandler colHand;
 	int nrOfBalls;
 	int capacity;
+	bool lerpTemp;
+	sf::Vector2f mousePos;
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
@@ -30,5 +36,8 @@ public:
 	// Inherited via GameState
 	virtual void run() override;
 	virtual State update() override;
+
+	// Inherited via GameState
+	virtual void handleEvents() override;
 };
 

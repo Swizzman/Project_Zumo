@@ -14,6 +14,7 @@ public:
 	void setOrigin(int x, int y);
 	sf::Vector2f getOrigin() const;
 	void setPosition(int x, int y);
+	void setPosition(sf::Vector2f position);
 	sf::Vector2f getPosition() const;
 	void setRotation(float angle);
 	sf::Vector2f lerp(sf::Vector2f currentPos, sf::Vector2f destPos, float modifier);

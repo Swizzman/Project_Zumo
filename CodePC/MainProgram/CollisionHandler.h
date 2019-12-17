@@ -4,6 +4,6 @@ class CollisionHandler
 {
 private:
 public:
-	bool checkBallCollision(Ball &collidedBall, Ball *& target);
+	int checkBallCollision(Ball &collidedBall, Ball **&target, int nrOf);
 };
 

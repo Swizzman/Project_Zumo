@@ -27,6 +27,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PositionHandler.cpp" />
+    <ClCompile Include="MenuMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PositionHandler.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="MenuMode.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFA3F943-8701-4E20-A183-D5C3C8375B61}</ProjectGuid>
