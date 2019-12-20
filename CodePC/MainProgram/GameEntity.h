@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 class GameEntity : public sf::Drawable
 {
 private:
@@ -11,6 +12,7 @@ public:
 	GameEntity(std::string texture);
 	sf::FloatRect getBounds() const;
 	void move(int speedX, int speedY);
+	void move(sf::Vector2f dir, int speed);
 	void setOrigin(int x, int y);
 	sf::Vector2f getOrigin() const;
 	void setPosition(int x, int y);

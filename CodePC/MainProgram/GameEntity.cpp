@@ -17,6 +17,11 @@ void GameEntity::move(int speedX, int speedY)
 	this->sprite.move(speedX, speedY);
 }
 
+void GameEntity::move(sf::Vector2f dir, int speed)
+{
+	this->sprite.move(dir.x * speed, dir.y * speed);
+}
+
 void GameEntity::setOrigin(int x, int y)
 {
 	this->sprite.setOrigin(x, y);

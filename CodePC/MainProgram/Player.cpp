@@ -29,7 +29,7 @@ bool Player::shoot()
 	bool shot = false;
 	if (shootBall != nullptr && mouse.isButtonPressed(sf::Mouse::Button::Left))
 	{
-		/*Lägg in funktion här*/
+
 		shootBall->setRotation(0.f);
 		shot = true;
 		releaseBall();

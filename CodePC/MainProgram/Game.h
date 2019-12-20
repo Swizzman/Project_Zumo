@@ -15,12 +15,15 @@ private:
 	Player* player;
 	Ball* playerBall;
 	Ball** ballArr;
-	PositionHandler posHand;
-	CollisionHandler colHand;
+	PositionHandler* posHand;
+	CollisionHandler* colHand;
 	int nrOfBalls;
 	int capacity;
-	bool lerpTemp;
+	bool moving;
+	bool playerCollided;
+	int collidedI;
 	sf::Vector2f mousePos;
+	sf::Vector2f dir;
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;

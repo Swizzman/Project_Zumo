@@ -3,6 +3,7 @@
 
 MenuMode::MenuMode()
 {
+
 	done = false;
 	this->currentSelection = 0;
 	font.loadFromFile("C:/Windows/fonts/arial.ttf");
@@ -29,11 +30,10 @@ MenuMode::~MenuMode()
 
 void MenuMode::moveUp()
 {
-	if (currentSelection-- < 1)
+	if (--currentSelection < 0)
 	{
 		currentSelection = MAX;
 	}
-	std::cout << currentSelection << std::endl;
 	alternatives[currentSelection].setFillColor(sf::Color::Red);
 
 	for (int i = 0; i < CAPACITY; i++)
@@ -49,7 +49,7 @@ void MenuMode::moveUp()
 void MenuMode::moveDown()
 {
 
-	if (currentSelection++ > MAX)
+	if (++currentSelection > MAX)
 	{
 		currentSelection = 0;
 	}
@@ -81,7 +81,7 @@ void MenuMode::handleEvents()
 		{
 			window.close();
 		}
-		if (sf::Keyboard::isKeyPressed)
+		if (event.type == sf::Event::KeyPressed)
 		{
 			switch (event.key.code)
 			{
@@ -92,6 +92,9 @@ void MenuMode::handleEvents()
 				moveUp();
 				break;
 			case sf::Keyboard::S:
+				moveDown();
+				break;
+			case sf::Keyboard::Down:
 				moveDown();
 				break;
 			case sf::Keyboard::Return:
