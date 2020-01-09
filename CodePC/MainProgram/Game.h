@@ -9,6 +9,7 @@
 #include "MenuMode.h"
 #include "PositionHandler.h"
 #include "CollisionHandler.h"
+#include "SoundHandler.h"
 class Game : public GameState
 {
 private:
@@ -17,6 +18,7 @@ private:
 	Ball** ballArr;
 	PositionHandler* posHand;
 	CollisionHandler* colHand;
+	SoundHandler soundHand;
 	int nrOfBalls;
 	int capacity;
 	bool moving;

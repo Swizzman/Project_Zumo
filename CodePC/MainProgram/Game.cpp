@@ -38,14 +38,16 @@ Game::~Game()
 	}
 	delete[] ballArr;
 	delete player;
+	delete playerBall;
 }
 
 
 
 void Game::run()
 {
-
+	handleEvents();
 	update();
+
 	render();
 
 }
@@ -61,7 +63,6 @@ State Game::update()
 		while (elapsedTimeSinceLastUpdate > timePerFrame)
 		{
 
-
 			elapsedTimeSinceLastUpdate -= timePerFrame;
 
 
@@ -73,6 +74,7 @@ State Game::update()
 				dir = sf::Vector2f(dist.x / magni, dist.y / magni);
 				moving = true;
 				playerCollided = false;
+				soundHand.shoot();
 			}
 			if (moving)
 			{
@@ -80,10 +82,15 @@ State Game::update()
 				collidedI = colHand->checkBallCollision(playerBall, ballArr, nrOfBalls);
 				if (collidedI != -1 && !playerCollided)
 				{
+
 					colHand->insertBall(playerBall, ballArr, nrOfBalls, collidedI);
 					playerCollided = true;
 					moving = false;
-					playerBall = nullptr;
+					playerBall = new Ball();
+					player->recieveBall(playerBall);
+					soundHand.collision();
+
+
 				}
 			}
 			for (int i = 0; i < nrOfBalls; i++)
@@ -94,12 +101,9 @@ State Game::update()
 					ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
 				}
 				ballArr[i]->moveTowardsDest();
-			}
-			for (int i = 0; i < nrOfBalls; i++)
-			{
 				posHand->setCurrentPos(i, ballArr[i]->getPosition());
-				//std::cout << std::to_string((int)posHand.getCurrentPos(i).x) << ": " << std::to_string((int)posHand.getCurrentPos(i).y) << std::endl;
 			}
+
 
 
 			render();

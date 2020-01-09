@@ -21,6 +21,7 @@ int main()
 	State currentState = State::NO_CHANGE;
 	current = new MenuMode();
 	currentState = State::MENU;
+	srand((unsigned int)time(0));
 	while (currentState != State::EXIT)
 	{
 		current->handleEvents();

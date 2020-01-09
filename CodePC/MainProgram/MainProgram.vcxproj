@@ -28,6 +28,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PositionHandler.cpp" />
     <ClCompile Include="MenuMode.cpp" />
+    <ClCompile Include="SoundHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PositionHandler.h" />
+    <ClInclude Include="SoundHandler.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="MenuMode.h" />
   </ItemGroup>

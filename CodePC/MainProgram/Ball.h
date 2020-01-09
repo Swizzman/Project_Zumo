@@ -7,10 +7,12 @@ private:
 	int xSpeed;
 	int ySpeed;
 	int movingSpeed;
-	int reacheadDests;
+	int reachedDests;
 	int textureColour;
 	float lerpMod;
 	sf::Vector2f currentDest;
+	sf::Vector2f lastPos;
+	bool reachedCurrentDest;
 public:
 	Ball();
 	void setNewDest(sf::Vector2f newDest);
@@ -18,10 +20,14 @@ public:
 	int getReachedDests() const;
 	sf::Vector2f getCurrentDest() const;
 	void setReachedDests(int dests);
+	void setLastPos();
 	void collisionMove();
+	void collisionMoveBack();
+	void collisionSetPos(sf::Vector2f newPos);
 	void moveTowardsDest();
 	bool reachedDest();
 	int getMovingSpeed() const;
+	int getColour() const;
 	void setMovingSpeed(int newSpeed);
 	int getXSpeed() const;
 	int getYSpeed() const;
