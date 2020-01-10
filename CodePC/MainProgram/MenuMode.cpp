@@ -18,9 +18,10 @@ MenuMode::MenuMode()
 	alternatives[0].setPosition(200, 300);
 	alternatives[1].setPosition(200, 400);
 	alternatives[2].setPosition(200, 500);
+	alternatives[0].setFillColor(sf::Color::Red);
 	gameName.setFont(this->font);
 	gameName.setString("Zumo!");
-	gameName.setFillColor(sf::Color::Red);
+	gameName.setFillColor(sf::Color::Yellow);
 	gameName.setPosition(200, 200);
 }
 

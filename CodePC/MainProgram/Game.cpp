@@ -1,5 +1,18 @@
 #include "Game.h"
 
+void Game::expand()
+{
+	capacity += 10;
+	Ball** temp = new Ball * [capacity] {nullptr};
+	for (int i = 0; i < nrOfBalls; i++)
+	{
+		temp[i] = ballArr[i];
+	}
+	delete[] ballArr;
+	ballArr = temp;
+	temp = nullptr;
+}
+
 Game::Game()
 {
 	this->moving = false;
@@ -45,10 +58,6 @@ Game::~Game()
 
 void Game::run()
 {
-	handleEvents();
-	update();
-
-	render();
 
 }
 
@@ -65,51 +74,68 @@ State Game::update()
 
 			elapsedTimeSinceLastUpdate -= timePerFrame;
 
-
-			player->rotate(window);
-			if (player->shoot() && !moving)
+			if (player->getLives() > 0)
 			{
-				sf::Vector2f dist = (sf::Vector2f)player->getMousePos() - player->getPosition();
-				float magni = sqrt(pow(dist.x, 2) + pow(dist.y, 2));
-				dir = sf::Vector2f(dist.x / magni, dist.y / magni);
-				moving = true;
-				playerCollided = false;
-				soundHand.shoot();
-			}
-			if (moving)
-			{
-				playerBall->move(dir, playerBall->getMovingSpeed());
-				collidedI = colHand->checkBallCollision(playerBall, ballArr, nrOfBalls);
-				if (collidedI != -1 && !playerCollided)
+				player->rotate(window);
+				if (player->shoot() && !moving)
 				{
+					sf::Vector2f dist = (sf::Vector2f)player->getMousePos() - player->getPosition();
+					float magni = sqrt(pow(dist.x, 2) + pow(dist.y, 2));
+					dir = sf::Vector2f(dist.x / magni, dist.y / magni);
+					moving = true;
+					playerCollided = false;
+					soundHand.shoot();
+				}
+				if (moving)
+				{
+					playerBall->move(dir, playerBall->getMovingSpeed());
+					collidedI = colHand->checkBallCollision(playerBall, ballArr, nrOfBalls);
+					if (collidedI != -1 && !playerCollided)
+					{
 
-					colHand->insertBall(playerBall, ballArr, nrOfBalls, collidedI);
-					playerCollided = true;
-					moving = false;
-					playerBall = new Ball();
-					player->recieveBall(playerBall);
-					soundHand.collision();
+						colHand->insertBall(playerBall, ballArr, nrOfBalls, collidedI);
+						playerCollided = true;
+						moving = false;
+						playerBall = new Ball();
+						player->recieveBall(playerBall);
+						soundHand.collision();
 
 
+					}
+				}
+				for (int i = 0; i < nrOfBalls; i++)
+				{
+					ballArr[i]->moveTowardsDest();
+					if (ballArr[i]->reachedDest())
+					{
+						if (ballArr[i]->getReachedDests() == posHand->getEndDest())
+						{
+							ballArr[i]->setPosition(-1000, -1000);
+							ballArr[i]->setMovingSpeed(0);
+							//player->decreaseLives();
+						}
+						else
+						{
+							ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
+						}
+					}
+
+					posHand->setCurrentPos(i, ballArr[i]->getPosition());
 				}
 			}
-			for (int i = 0; i < nrOfBalls; i++)
+			else
 			{
-
-				if (ballArr[i]->reachedDest())
-				{
-					ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
-				}
-				ballArr[i]->moveTowardsDest();
-				posHand->setCurrentPos(i, ballArr[i]->getPosition());
+				state = State::GAME_OVER;
+				std::cout << player->getLives() << std::endl;
 			}
-
-
-
+			if (nrOfBalls == capacity)
+			{
+				expand();
+			}
 			render();
 		}
+		return state;
 	}
-	return state;
 }
 
 void Game::handleEvents()
@@ -135,7 +161,7 @@ void Game::render()
 	if (playerBall != nullptr)
 	{
 
-	window.draw(*playerBall);
+		window.draw(*playerBall);
 	}
 	window.display();
 }

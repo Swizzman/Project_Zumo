@@ -15,6 +15,7 @@ private:
 public:
 	Player(int xSize, int ySize);
 	int getLives() const;
+	void decreaseLives();
 	void recieveBall(Ball* ballPtr);
 	void releaseBall();
 	bool shoot();

@@ -14,6 +14,11 @@ int Player::getLives() const
 	return lives;
 }
 
+void Player::decreaseLives()
+{
+	this->lives--;
+}
+
 void Player::recieveBall(Ball* ballPtr)
 {
 	shootBall = ballPtr;

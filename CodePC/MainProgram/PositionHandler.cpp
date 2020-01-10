@@ -12,6 +12,7 @@ PositionHandler::PositionHandler()
 	destPos[7] = sf::Vector2f(600, 400);
 	destPos[8] = sf::Vector2f(0, 400);
 	destPos[9] = sf::Vector2f(600, 400);
+	endDest = 5;
 }
 
 sf::Vector2f PositionHandler::getDestPos(int index)
@@ -31,4 +32,9 @@ sf::Vector2f PositionHandler::getCurrentPos(int index)
 
 PositionHandler::~PositionHandler()
 {
+}
+
+int PositionHandler::getEndDest() const
+{
+	return endDest;
 }

@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "game.h"
+#include "MenuMode.h"
+#include "GameOverMode.h"
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "sfml-window-d.lib")
@@ -39,6 +42,10 @@ int main()
 		case State::MENU:
 			delete current;
 			current = new MenuMode();
+			break;
+		case State::GAME_OVER:
+			delete current;
+			current = new GameOverMode();
 			break;
 		}
 		current->render();

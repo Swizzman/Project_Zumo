@@ -6,10 +6,10 @@
 #include "Ball.h"
 #include "GameState.h"
 #include "State.h"
-#include "MenuMode.h"
 #include "PositionHandler.h"
 #include "CollisionHandler.h"
 #include "SoundHandler.h"
+#include "UIHand.h";
 class Game : public GameState
 {
 private:
@@ -29,7 +29,7 @@ private:
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
-
+	void expand();
 public:
 	Game();
 	virtual ~Game();
