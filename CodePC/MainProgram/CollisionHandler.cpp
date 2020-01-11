@@ -14,7 +14,6 @@ int CollisionHandler::checkBallCollision(Ball*& collisionBall, Ball**& target, i
 	{
 		if (target[i]->getBounds().intersects(collisionBall->getBounds()))
 		{
-			std::cout << i << std::endl;
 			collided = i;
 		}
 	}
@@ -28,19 +27,19 @@ void CollisionHandler::insertBall(Ball*& collidedBall, Ball**& target, int& nrOf
 	collidedBall->setReachedDests(target[collidedIndex]->getReachedDests());
 	collidedBall->setNewDest(target[collidedIndex]->getCurrentDest());
 	collidedBall->setPosition(target[collidedIndex]->getPosition());
-		for (int i = collidedIndex; i >= 0; i--)
+	for (int i = collidedIndex; i >= 0; i--)
+	{
+		if (i == 0)
 		{
-			if (i == 0)
-			{
-				target[i]->collisionMove();
-
-			}
-			else
-			{
-				target[i]->collisionSetPos(posHand->getCurrentPos(i - 1));
-			}
+			target[i]->collisionMove();
 
 		}
+		else
+		{
+			target[i]->collisionSetPos(posHand->getCurrentPos(i - 1));
+		}
+
+	}
 
 	Ball* temp = nullptr;
 	Ball* temp2 = nullptr;
@@ -104,7 +103,6 @@ void CollisionHandler::colourCheck(Ball**& arr, int& nrOf, int collidedIndex)
 	if (colourBack + colourForward >= 2)
 	{
 		colourDestroy(arr, nrOf, collidedIndex, colourForward, colourBack);
-
 	}
 	colourForward = 0;
 	colourBack = 0;
@@ -112,28 +110,22 @@ void CollisionHandler::colourCheck(Ball**& arr, int& nrOf, int collidedIndex)
 
 void CollisionHandler::colourDestroy(Ball**& arr, int& nrOf, int collidedIndex, int forward, int back)
 {
-	for (int i = collidedIndex; i <= collidedIndex + colourBack; i++)
+	int counter = 1;
+	for (int i = collidedIndex; i <= collidedIndex + back; i++)
 	{
-		arr[i]->setPosition(-1000, -1000);
-		arr[i]->setMovingSpeed(0);
-		//delete arr[i];
+		delete arr[i];
 	}
-	//for (int i = collidedIndex + 1 + colourBack; i < nrOf; i++)
-	//{
-	//	arr[i] = arr[i + 1];
-	//}
-	//nrOf -= colourBack;
-	for (int i = collidedIndex; i >= collidedIndex - colourForward; i--)
-	{
-		arr[i]->setPosition(-1000, -1000);
-		arr[i]->setMovingSpeed(0);
-		//delete arr[i];
 
+	for (int i = collidedIndex - 1; i >= collidedIndex - forward; i--)
+	{
+		delete arr[i];
 	}
-	//for (int i = collidedIndex - colourForward; i < nrOf; i++)
-	//{
-	//	arr[i] = arr[i + 1];
-	//}
-	//nrOf -= colourForward + 1;
-	//
+	for (int i = collidedIndex - forward; i < nrOf; i++)
+	{
+		arr[i] = arr[collidedIndex + back + counter];
+		counter++;
+	}
+	counter = 1;
+	nrOf -= forward + back + 1;
+	std::cout << nrOf << std::endl;
 }

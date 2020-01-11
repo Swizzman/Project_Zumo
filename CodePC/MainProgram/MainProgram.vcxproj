@@ -25,12 +25,15 @@
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameOverMode.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameWonMode.cpp" />
+    <ClCompile Include="HighscoreMode.cpp" />
+    <ClCompile Include="Logo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PositionHandler.cpp" />
     <ClCompile Include="MenuMode.cpp" />
     <ClCompile Include="SoundHandler.cpp" />
-    <ClCompile Include="UIHand.cpp" />
+    <ClCompile Include="UIHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -39,12 +42,15 @@
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameOverMode.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameWonMode.h" />
+    <ClInclude Include="HighscoreMode.h" />
+    <ClInclude Include="Logo.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PositionHandler.h" />
     <ClInclude Include="SoundHandler.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="MenuMode.h" />
-    <ClInclude Include="UIHand.h" />
+    <ClInclude Include="UIHandler.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFA3F943-8701-4E20-A183-D5C3C8375B61}</ProjectGuid>

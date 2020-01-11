@@ -82,7 +82,26 @@ void Ball::collisionSetPos(sf::Vector2f newPos)
 		this->reachedDests++;
 		this->reachedCurrentDest = true;
 	}
-
+	//if (lastPos.x > this->currentDest.x && this->xSpeed == 0)
+	//{
+	//	this->reachedDests++;
+	//	this->reachedCurrentDest = true;
+	//}
+	//else if (lastPos.x < this->currentDest.x && this->xSpeed == 0)
+	//{
+	//	this->reachedDests++;
+	//	this->reachedCurrentDest = true;
+	//}
+	//else if (lastPos.y > this->currentDest.y && this->ySpeed == 0)
+	//{
+	//	this->reachedDests++;
+	//	this->reachedCurrentDest = true;
+	//}
+	//else if (lastPos.y < this->currentDest.y && this->ySpeed == 0)
+	//{
+	//	this->reachedDests++;
+	//	this->reachedCurrentDest = true;
+	//}
 }
 
 void Ball::moveTowardsDest()

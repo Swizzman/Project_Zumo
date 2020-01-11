@@ -3,7 +3,7 @@
 Player::Player( int xSize, int ySize):GameEntity("player.png")
 {
 	this->shootBall = nullptr;
-	this->lives = 20;
+	this->lives = 30;
 	this->offset = getPosition() - (sf::Vector2f)mouse.getPosition();
 	this->setOrigin(getBounds().left + getBounds().width / 2, getBounds().top + getBounds().height / 2);
 	this->setPosition(xSize / 2, ySize / 2);
@@ -22,6 +22,7 @@ void Player::decreaseLives()
 void Player::recieveBall(Ball* ballPtr)
 {
 	shootBall = ballPtr;
+	shootBall->setMovingSpeed(15);
 }
 
 void Player::releaseBall()
@@ -61,4 +62,8 @@ void Player::rotate(sf::RenderWindow &window)
 sf::Vector2f Player::getMousePos() const
 {
 	return (sf::Vector2f)mouse.getPosition();
+}
+
+Player::~Player()
+{
 }

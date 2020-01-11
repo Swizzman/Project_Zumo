@@ -7,6 +7,23 @@ GameEntity::GameEntity(std::string texture)
 	this->setOrigin(0, 0);
 }
 
+void GameEntity::setTexture(sf::Texture newTexture)
+{
+	this->texture = newTexture;
+}
+
+void GameEntity::setTextureRect(sf::IntRect intRect)
+{
+	sprite.setTextureRect(intRect);
+}
+
+sf::Vector2u GameEntity::getTextureSize() const
+{
+	return texture.getSize();
+}
+
+
+
 sf::FloatRect GameEntity::getBounds() const
 {
 	return this->sprite.getGlobalBounds();

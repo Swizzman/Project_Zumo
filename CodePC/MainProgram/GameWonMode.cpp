@@ -1,25 +1,24 @@
-#include "GameOverMode.h"
+#include "GameWonMode.h"
 
-GameOverMode::GameOverMode()
+GameWonMode::GameWonMode()
 {
-	
-	uIHand.changeText("Game Over!");
+	uIHand.changeText("Game Won!");
 	uIHand.setTextPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
 	uIHand.setCharacterSize(30);
 	done = false;
 }
 
-GameOverMode::~GameOverMode()
+GameWonMode::~GameWonMode()
 {
 }
 
-void GameOverMode::run()
+void GameWonMode::run()
 {
 	handleEvents();
 	update();
 }
 
-void GameOverMode::handleEvents()
+void GameWonMode::handleEvents()
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -41,7 +40,7 @@ void GameOverMode::handleEvents()
 	}
 }
 
-State GameOverMode::update()
+State GameWonMode::update()
 {
 	State state = State::NO_CHANGE;
 	if (done)
@@ -49,11 +48,12 @@ State GameOverMode::update()
 		state = State::MENU;
 	}
 	return state;
+
 }
 
-void GameOverMode::render()
+void GameWonMode::render()
 {
-	
+	window.clear();
 	window.draw(uIHand.getText());
 	window.display();
 }

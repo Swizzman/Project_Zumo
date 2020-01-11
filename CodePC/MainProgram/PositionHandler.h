@@ -3,7 +3,7 @@
 class PositionHandler
 {
 private:
-	static const int CAPACITY2 = 100;
+	static const int CAPACITY2 = 60;
 	static const int CAPACITY = 10;
 	int endDest;
 	sf::Vector2f destPos[CAPACITY];

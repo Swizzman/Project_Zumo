@@ -9,7 +9,7 @@
 #include "PositionHandler.h"
 #include "CollisionHandler.h"
 #include "SoundHandler.h"
-#include "UIHand.h";
+#include "UIHandler.h"
 class Game : public GameState
 {
 private:
@@ -19,6 +19,9 @@ private:
 	PositionHandler* posHand;
 	CollisionHandler* colHand;
 	SoundHandler soundHand;
+	UIHandler uIHand;
+	int animTime;
+	int animUpdateTime;
 	int nrOfBalls;
 	int capacity;
 	bool moving;
@@ -30,6 +33,7 @@ private:
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
 	void expand();
+	void startAnim();
 public:
 	Game();
 	virtual ~Game();

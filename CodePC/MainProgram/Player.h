@@ -21,6 +21,7 @@ public:
 	bool shoot();
 	void rotate(sf::RenderWindow& window);
 	sf::Vector2f getMousePos() const;
+	virtual ~Player();
 
 };
 

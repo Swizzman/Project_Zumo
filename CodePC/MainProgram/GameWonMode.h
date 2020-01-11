@@ -1,15 +1,14 @@
 #pragma once
-#include "State.h"
 #include "GameState.h"
 #include "UIHandler.h"
-class GameOverMode : public GameState
+class GameWonMode : public GameState
 {
 private:
 	UIHandler uIHand;
 	bool done;
 public:
-	GameOverMode();
-	virtual ~GameOverMode();
+	GameWonMode();
+	virtual ~GameWonMode();
 	// Inherited via GameState
 	virtual void run() override;
 	virtual void handleEvents() override;

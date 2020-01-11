@@ -3,7 +3,8 @@
 
 MenuMode::MenuMode()
 {
-
+	this->timeCounter = 0;
+	this->updateTime = 150;
 	done = false;
 	this->currentSelection = 0;
 	font.loadFromFile("C:/Windows/fonts/arial.ttf");
@@ -19,10 +20,9 @@ MenuMode::MenuMode()
 	alternatives[1].setPosition(200, 400);
 	alternatives[2].setPosition(200, 500);
 	alternatives[0].setFillColor(sf::Color::Red);
-	gameName.setFont(this->font);
-	gameName.setString("Zumo!");
-	gameName.setFillColor(sf::Color::Yellow);
-	gameName.setPosition(200, 200);
+	logo.setPosition(-100, -100);
+	this->elapsedTimeSinceLastUpdate = sf::Time::Zero;
+	this->timePerFrame = sf::seconds(1 / 60.f);
 }
 
 MenuMode::~MenuMode()
@@ -78,6 +78,7 @@ void MenuMode::handleEvents()
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
+
 		if (event.type == sf::Event::Closed)
 		{
 			window.close();
@@ -103,37 +104,55 @@ void MenuMode::handleEvents()
 				break;
 			}
 		}
-
 	}
+
 }
+
 
 State MenuMode::update()
 {
 	State state = State::NO_CHANGE;
-	if (done)
+	while (window.isOpen())
 	{
-		switch (currentSelection)
+
+		elapsedTimeSinceLastUpdate += clock.restart();
+
+		while (elapsedTimeSinceLastUpdate > timePerFrame)
 		{
-		case 0:
-			state = State::GAME;
-			break;
-		case 1:
-			state = State::HIGHSCORE;
-			break;
-		case 2:
-			state = State::EXIT;
+
+			if (done)
+			{
+				switch (currentSelection)
+				{
+				case 0:
+					state = State::GAME;
+					break;
+				case 1:
+					state = State::HIGHSCORE;
+					break;
+				case 2:
+					state = State::EXIT;
+					break;
+				}
+			}
+			this->timeCounter = (this->timeCounter + 1) % this->updateTime;
+			if (this->timeCounter == 0)
+			{
+				logo.nextFrame();
+			}
+			return state;
 		}
 	}
-	return state;
 }
+
 
 void MenuMode::render()
 {
 	window.clear();
-	window.draw(gameName);
 	for (int i = 0; i < CAPACITY; i++)
 	{
 		window.draw(alternatives[i]);
 	}
+	window.draw(logo);
 	window.display();
 }

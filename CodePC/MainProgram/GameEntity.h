@@ -5,11 +5,15 @@
 class GameEntity : public sf::Drawable
 {
 private:
+
 	sf::Sprite sprite;
 	sf::Texture texture;
 
 public:
 	GameEntity(std::string texture);
+	void setTexture(sf::Texture newTexture);
+	void setTextureRect(sf::IntRect intRect);
+	sf::Vector2u getTextureSize() const;
 	sf::FloatRect getBounds() const;
 	void move(int speedX, int speedY);
 	void move(sf::Vector2f dir, int speed);

@@ -6,7 +6,7 @@ void Game::expand()
 	Ball** temp = new Ball * [capacity] {nullptr};
 	for (int i = 0; i < nrOfBalls; i++)
 	{
-		temp[i] = ballArr[i];
+		temp[i] = this->ballArr[i];
 	}
 	delete[] ballArr;
 	ballArr = temp;
@@ -25,7 +25,9 @@ Game::Game()
 	player = new Player(WIDTH, HEIGHT);
 	ballArr = new Ball * [capacity] {nullptr};
 	colHand = new CollisionHandler(posHand);
-	for (int i = 0; i < 40; i++)
+	uIHand.setTextPosition(sf::Vector2f(1700, 100));
+	uIHand.setCharacterSize(30);
+	for (int i = 0; i < 20; i++)
 	{
 		ballArr[i] = new Ball();
 		nrOfBalls++;
@@ -49,9 +51,11 @@ Game::~Game()
 	{
 		delete ballArr[i];
 	}
-	delete[] ballArr;
-	delete player;
 	delete playerBall;
+	delete player;
+	delete posHand;
+	delete colHand;
+	delete[] ballArr;
 }
 
 
@@ -74,7 +78,11 @@ State Game::update()
 
 			elapsedTimeSinceLastUpdate -= timePerFrame;
 
-			if (player->getLives() > 0)
+			if (nrOfBalls <= 0 && player->getLives() > 0)
+			{
+				state = State::GAME_WON;
+			}
+			else if (player->getLives() > 0)
 			{
 				player->rotate(window);
 				if (player->shoot() && !moving)
@@ -105,23 +113,30 @@ State Game::update()
 				}
 				for (int i = 0; i < nrOfBalls; i++)
 				{
-					ballArr[i]->moveTowardsDest();
 					if (ballArr[i]->reachedDest())
 					{
 						if (ballArr[i]->getReachedDests() == posHand->getEndDest())
 						{
-							ballArr[i]->setPosition(-1000, -1000);
-							ballArr[i]->setMovingSpeed(0);
-							//player->decreaseLives();
+							delete ballArr[i];
+							nrOfBalls--;
+							for (int i = 0; i < nrOfBalls; i++)
+							{
+								ballArr[i] = ballArr[i + 1];
+							}
+
+							player->decreaseLives();
 						}
 						else
 						{
 							ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
 						}
 					}
+					ballArr[i]->moveTowardsDest();
 
 					posHand->setCurrentPos(i, ballArr[i]->getPosition());
 				}
+				uIHand.changeText("Lives: " + std::to_string(player->getLives()));
+
 			}
 			else
 			{
@@ -160,9 +175,9 @@ void Game::render()
 	}
 	if (playerBall != nullptr)
 	{
-
 		window.draw(*playerBall);
 	}
+	window.draw(uIHand.getText());
 	window.display();
 }
 

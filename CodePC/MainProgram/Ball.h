@@ -13,6 +13,7 @@ private:
 	sf::Vector2f currentDest;
 	sf::Vector2f lastPos;
 	bool reachedCurrentDest;
+	bool startAnim;
 public:
 	Ball();
 	void setNewDest(sf::Vector2f newDest);
@@ -22,8 +23,12 @@ public:
 	void setReachedDests(int dests);
 	void setLastPos();
 	void collisionMove();
-	void collisionMoveBack();
+	void finished();
 	void collisionSetPos(sf::Vector2f newPos);
+	void setStartAnim();
+	bool getAnimStart() const;
+	void nextFrame();
+
 	void moveTowardsDest();
 	bool reachedDest();
 	int getMovingSpeed() const;

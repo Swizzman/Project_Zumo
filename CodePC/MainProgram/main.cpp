@@ -2,6 +2,8 @@
 #include "game.h"
 #include "MenuMode.h"
 #include "GameOverMode.h"
+#include "GameWonMode.h"
+#include "HighscoreMode.h"
 
 
 #ifdef _DEBUG
@@ -38,6 +40,7 @@ int main()
 			break;
 		case State::HIGHSCORE:
 			delete current;
+			current = new HighscoreMode();
 			break;
 		case State::MENU:
 			delete current;
@@ -47,6 +50,9 @@ int main()
 			delete current;
 			current = new GameOverMode();
 			break;
+		case State::GAME_WON:
+			delete current;
+			current = new GameWonMode();
 		}
 		current->render();
 	}
