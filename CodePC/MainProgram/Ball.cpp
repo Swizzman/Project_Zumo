@@ -3,8 +3,7 @@
 Ball::Ball() : GameEntity("ball" + std::to_string(textureColour = rand() % 5) + ".png")
 {
 	this->reachedDests = 0;
-	this->currentDest = sf::Vector2f(0, 0);
-	this->lerpMod = 0.01f;
+	this->currentDest = sf::Vector2f(600, 0);
 	this->movingSpeed = 5;
 	this->xSpeed = 0;
 	this->ySpeed = 0;
@@ -17,11 +16,6 @@ void Ball::setNewDest(sf::Vector2f newDest)
 	this->reachedCurrentDest = false;
 }
 
-sf::Vector2f Ball::lerp(sf::Vector2f& pointA, sf::Vector2f& pointB, float factor)
-{
-	return pointA + (pointB - pointA) * factor;
-}
-
 int Ball::getReachedDests() const
 {
 	return this->reachedDests;
@@ -32,9 +26,14 @@ sf::Vector2f Ball::getCurrentDest() const
 	return this->currentDest;
 }
 
-void Ball::setReachedDests(int dests)
+void Ball::increaseReachedDests()
 {
-	this->reachedDests = dests;
+	this->reachedDests++;
+}
+
+void Ball::setReachedDests(int reached)
+{
+	this->reachedDests = reached;
 }
 
 void Ball::setLastPos()
@@ -46,21 +45,21 @@ void Ball::collisionMove()
 {
 	if (this->xSpeed > 0)
 	{
-		this->setPosition(this->getPosition().x + 45, this->getPosition().y);
+		this->setPosition(this->getPosition().x - 45, this->getPosition().y);
 	}
 	else if (this->xSpeed < 0)
 	{
-		this->setPosition(this->getPosition().x - 45, this->getPosition().y);
+		this->setPosition(this->getPosition().x + 45, this->getPosition().y);
 
 	}
 	if (this->ySpeed > 0)
 	{
-		this->setPosition(this->getPosition().x, this->getPosition().y + 45);
+		this->setPosition(this->getPosition().x, this->getPosition().y - 45);
 
 	}
 	else if (this->ySpeed < 0)
 	{
-		this->setPosition(this->getPosition().x, this->getPosition().y - 45);
+		this->setPosition(this->getPosition().x, this->getPosition().y + 45);
 
 	}
 }
@@ -71,37 +70,22 @@ void Ball::collisionSetPos(sf::Vector2f newPos)
 {
 	setLastPos();
 	setPosition(newPos);
-	if (getPosition().x != lastPos.x && this->xSpeed == 0)
+	if (newPos.x != lastPos.x && this->xSpeed == 0)
 	{
-		this->reachedDests++;
 		this->reachedCurrentDest = true;
 	}
-	else if (getPosition().y != lastPos.y && this->ySpeed ==0)
+	else if (newPos.y != lastPos.y && this->ySpeed ==0)
 	{
 
-		this->reachedDests++;
 		this->reachedCurrentDest = true;
 	}
-	//if (lastPos.x > this->currentDest.x && this->xSpeed == 0)
-	//{
-	//	this->reachedDests++;
-	//	this->reachedCurrentDest = true;
-	//}
-	//else if (lastPos.x < this->currentDest.x && this->xSpeed == 0)
-	//{
-	//	this->reachedDests++;
-	//	this->reachedCurrentDest = true;
-	//}
-	//else if (lastPos.y > this->currentDest.y && this->ySpeed == 0)
-	//{
-	//	this->reachedDests++;
-	//	this->reachedCurrentDest = true;
-	//}
-	//else if (lastPos.y < this->currentDest.y && this->ySpeed == 0)
-	//{
-	//	this->reachedDests++;
-	//	this->reachedCurrentDest = true;
-	//}
+
+}
+
+
+bool Ball::checkReached()
+{
+	return reachedCurrentDest;
 }
 
 void Ball::moveTowardsDest()
@@ -127,14 +111,8 @@ void Ball::moveTowardsDest()
 	move(this->xSpeed, this->ySpeed);
 	if (getPosition() == this->currentDest)
 	{
-		this->reachedDests++;
 		this->reachedCurrentDest = true;
 	}
-}
-
-bool Ball::reachedDest()
-{
-	return this->reachedCurrentDest;
 }
 
 int Ball::getMovingSpeed() const

@@ -15,6 +15,7 @@ void Game::expand()
 
 Game::Game()
 {
+	this->nrOfDeathBalls = 0;
 	this->moving = false;
 	this->capacity = 50;
 	this->nrOfBalls = 0;
@@ -24,22 +25,23 @@ Game::Game()
 	posHand = new PositionHandler();
 	player = new Player(WIDTH, HEIGHT);
 	ballArr = new Ball * [capacity] {nullptr};
+	deathArr = new Ball * [capacity] {nullptr};
 	colHand = new CollisionHandler(posHand);
 	uIHand.setTextPosition(sf::Vector2f(1700, 100));
 	uIHand.setCharacterSize(30);
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 50; i++)
 	{
+		
 		ballArr[i] = new Ball();
-		nrOfBalls++;
-		ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
 		if (i != 0)
 		{
 			ballArr[i]->setPosition(ballArr[i - 1]->getPosition().x - 45, 0);
 		}
+		ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
+		nrOfBalls++;
 
 	}
 	playerBall = new Ball();
-	//player->setPosition(WIDTH / 2, HEIGHT / 2);
 	player->recieveBall(playerBall);
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
@@ -51,19 +53,20 @@ Game::~Game()
 	{
 		delete ballArr[i];
 	}
+	for (int i = 0; i < nrOfDeathBalls; i++)
+	{
+		delete deathArr[i];
+
+	}
 	delete playerBall;
 	delete player;
 	delete posHand;
 	delete colHand;
 	delete[] ballArr;
+	delete[] deathArr;
 }
 
 
-
-void Game::run()
-{
-
-}
 
 State Game::update()
 {
@@ -111,17 +114,30 @@ State Game::update()
 
 					}
 				}
+				if (moving && (playerBall->getPosition().x > WIDTH || 
+					playerBall->getPosition().x < 0 ||
+					playerBall->getPosition().y > HEIGHT || 
+					playerBall->getPosition().y < 0 ))
+				{
+					delete playerBall;
+					playerBall = new Ball();
+					player->recieveBall(playerBall);
+					moving = false;
+				}
 				for (int i = 0; i < nrOfBalls; i++)
 				{
-					if (ballArr[i]->reachedDest())
+					
+					ballArr[i]->moveTowardsDest();
+					if (ballArr[i]->checkReached())
 					{
+						ballArr[i]->increaseReachedDests();
 						if (ballArr[i]->getReachedDests() == posHand->getEndDest())
 						{
-							delete ballArr[i];
+							deathArr[nrOfDeathBalls++] = ballArr[i];
 							nrOfBalls--;
-							for (int i = 0; i < nrOfBalls; i++)
+							for (int y = i; y < nrOfBalls; y++)
 							{
-								ballArr[i] = ballArr[i + 1];
+								ballArr[y] = ballArr[y + 1];
 							}
 
 							player->decreaseLives();
@@ -131,7 +147,6 @@ State Game::update()
 							ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
 						}
 					}
-					ballArr[i]->moveTowardsDest();
 
 					posHand->setCurrentPos(i, ballArr[i]->getPosition());
 				}
@@ -141,7 +156,6 @@ State Game::update()
 			else
 			{
 				state = State::GAME_OVER;
-				std::cout << player->getLives() << std::endl;
 			}
 			if (nrOfBalls == capacity)
 			{

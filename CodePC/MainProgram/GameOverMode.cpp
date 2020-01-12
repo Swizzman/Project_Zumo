@@ -13,11 +13,6 @@ GameOverMode::~GameOverMode()
 {
 }
 
-void GameOverMode::run()
-{
-	handleEvents();
-	update();
-}
 
 void GameOverMode::handleEvents()
 {

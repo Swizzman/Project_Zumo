@@ -24,9 +24,7 @@ public:
 	void moveUp();
 	void moveDown();
 
-	// Inherited via GameState
-	virtual void run() override;
-
+	// Inherited via GameState 
 	virtual void handleEvents() override;
 
 	virtual State update() override;

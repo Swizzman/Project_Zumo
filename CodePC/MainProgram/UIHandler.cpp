@@ -33,6 +33,8 @@ sf::Vector2f UIHandler::getTextSize() const
 	return sf::Vector2f(text.getGlobalBounds().width,text.getGlobalBounds().height);
 }
 
+
+
 UIHandler::~UIHandler()
 {
 }

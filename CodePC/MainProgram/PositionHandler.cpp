@@ -15,7 +15,7 @@ PositionHandler::PositionHandler()
 	endDest = 10;
 }
 
-sf::Vector2f PositionHandler::getDestPos(int index)
+sf::Vector2f PositionHandler::getDestPos(int index) const
 {
 	return destPos[index];
 }

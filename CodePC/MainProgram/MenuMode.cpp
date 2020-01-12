@@ -20,7 +20,7 @@ MenuMode::MenuMode()
 	alternatives[1].setPosition(200, 400);
 	alternatives[2].setPosition(200, 500);
 	alternatives[0].setFillColor(sf::Color::Red);
-	logo.setPosition(-100, -100);
+	logo.setPosition(100, -100);
 	this->elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	this->timePerFrame = sf::seconds(1 / 60.f);
 }
@@ -66,12 +66,7 @@ void MenuMode::moveDown()
 
 }
 
-void MenuMode::run()
-{
-	handleEvents();
-	update();
 
-}
 
 void MenuMode::handleEvents()
 {

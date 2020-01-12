@@ -4,36 +4,30 @@ class Ball :
 	public GameEntity
 {
 private:
+	int textureColour;
 	int xSpeed;
 	int ySpeed;
 	int movingSpeed;
 	int reachedDests;
-	int textureColour;
-	float lerpMod;
 	sf::Vector2f currentDest;
 	sf::Vector2f lastPos;
 	bool reachedCurrentDest;
-	bool startAnim;
+	void setLastPos();
 public:
 	Ball();
 	void setNewDest(sf::Vector2f newDest);
-	sf::Vector2f lerp(sf::Vector2f& pointA, sf::Vector2f& pointB, float factor = 0.01);
 	int getReachedDests() const;
 	sf::Vector2f getCurrentDest() const;
-	void setReachedDests(int dests);
-	void setLastPos();
+	void increaseReachedDests();
+	void setReachedDests(int reached);
 	void collisionMove();
-	void finished();
 	void collisionSetPos(sf::Vector2f newPos);
-	void setStartAnim();
-	bool getAnimStart() const;
-	void nextFrame();
 
+	bool checkReached();
 	void moveTowardsDest();
-	bool reachedDest();
 	int getMovingSpeed() const;
-	int getColour() const;
 	void setMovingSpeed(int newSpeed);
+	int getColour() const;
 	int getXSpeed() const;
 	int getYSpeed() const;
 	virtual ~Ball();

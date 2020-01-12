@@ -27,16 +27,19 @@ void CollisionHandler::insertBall(Ball*& collidedBall, Ball**& target, int& nrOf
 	collidedBall->setReachedDests(target[collidedIndex]->getReachedDests());
 	collidedBall->setNewDest(target[collidedIndex]->getCurrentDest());
 	collidedBall->setPosition(target[collidedIndex]->getPosition());
-	for (int i = collidedIndex; i >= 0; i--)
+
+	for (int i = collidedIndex; i < nrOf; i++)
 	{
-		if (i == 0)
+		if (i == nrOf - 1)
 		{
 			target[i]->collisionMove();
 
 		}
 		else
 		{
-			target[i]->collisionSetPos(posHand->getCurrentPos(i - 1));
+			target[i]->setPosition(target[i + 1]->getPosition());
+			target[i]->setReachedDests(target[i + 1]->getReachedDests());
+			target[i]->setNewDest(target[i + 1]->getCurrentDest());
 		}
 
 	}
@@ -47,7 +50,7 @@ void CollisionHandler::insertBall(Ball*& collidedBall, Ball**& target, int& nrOf
 	temp = target[collidedIndex];
 	for (int i = collidedIndex; i < nrOf; i++)
 	{
-		if (target[i + 1] != nullptr)
+		if (target[i] != nullptr)
 		{
 			temp2 = target[i + 1];
 			target[i + 1] = temp;
@@ -60,9 +63,9 @@ void CollisionHandler::insertBall(Ball*& collidedBall, Ball**& target, int& nrOf
 			temp2 = nullptr;
 		}
 	}
-	target[collidedIndex + 1] = collidedBall;
+	target[collidedIndex] = collidedBall;
 	nrOf++;
-	colourCheck(target, nrOf, collidedIndex + 1);
+	colourCheck(target, nrOf, collidedIndex);
 }
 
 void CollisionHandler::colourCheck(Ball**& arr, int& nrOf, int collidedIndex)
@@ -110,6 +113,14 @@ void CollisionHandler::colourCheck(Ball**& arr, int& nrOf, int collidedIndex)
 
 void CollisionHandler::colourDestroy(Ball**& arr, int& nrOf, int collidedIndex, int forward, int back)
 {
+	int tempDestNrOf = nrOf;
+	sf::Vector2f* tempDest = new sf::Vector2f[tempDestNrOf];
+	int* tempDests = new int[tempDestNrOf];
+	for (int i = 0; i < tempDestNrOf; i++)
+	{
+		tempDest[i] = arr[i]->getCurrentDest();
+		tempDests[i] = arr[i]->getReachedDests();
+	}
 	int counter = 1;
 	for (int i = collidedIndex; i <= collidedIndex + back; i++)
 	{
@@ -122,10 +133,24 @@ void CollisionHandler::colourDestroy(Ball**& arr, int& nrOf, int collidedIndex, 
 	}
 	for (int i = collidedIndex - forward; i < nrOf; i++)
 	{
+
 		arr[i] = arr[collidedIndex + back + counter];
 		counter++;
 	}
-	counter = 1;
+
+
+	counter = 0;
 	nrOf -= forward + back + 1;
-	std::cout << nrOf << std::endl;
+	for (int i = collidedIndex - forward - 1; i >= 0 ; i--)
+	{
+		std::cout << "dsds" << std::endl;
+		arr[i]->setPosition(posHand->getCurrentPos(collidedIndex + back - counter));
+		arr[i]->setNewDest(tempDest[collidedIndex + back - counter]);
+		arr[i]->setReachedDests(tempDests[collidedIndex + back - counter]);
+		counter++;
+	}
+	counter = 1;
+	delete[] tempDest;
+	delete[] tempDests;
+
 }

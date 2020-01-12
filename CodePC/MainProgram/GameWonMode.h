@@ -10,7 +10,6 @@ public:
 	GameWonMode();
 	virtual ~GameWonMode();
 	// Inherited via GameState
-	virtual void run() override;
 	virtual void handleEvents() override;
 	virtual State update() override;
 	virtual void render() override;

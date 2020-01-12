@@ -16,13 +16,14 @@ private:
 	Player* player;
 	Ball* playerBall;
 	Ball** ballArr;
+	Ball** deathArr;
 	PositionHandler* posHand;
 	CollisionHandler* colHand;
 	SoundHandler soundHand;
 	UIHandler uIHand;
-	int animTime;
-	int animUpdateTime;
+
 	int nrOfBalls;
+	int nrOfDeathBalls;
 	int capacity;
 	bool moving;
 	bool playerCollided;
@@ -33,7 +34,6 @@ private:
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;
 	void expand();
-	void startAnim();
 public:
 	Game();
 	virtual ~Game();
@@ -43,7 +43,6 @@ public:
 	virtual void render() override;
  
 	// Inherited via GameState
-	virtual void run() override;
 	virtual State update() override;
 
 	// Inherited via GameState

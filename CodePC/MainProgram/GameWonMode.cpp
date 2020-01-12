@@ -12,12 +12,6 @@ GameWonMode::~GameWonMode()
 {
 }
 
-void GameWonMode::run()
-{
-	handleEvents();
-	update();
-}
-
 void GameWonMode::handleEvents()
 {
 	sf::Event event;

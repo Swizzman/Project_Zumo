@@ -69,11 +69,6 @@ void GameEntity::setRotation(float angle)
 	this->sprite.setRotation(angle);
 }
 
-sf::Vector2f GameEntity::lerp(sf::Vector2f currentPos, sf::Vector2f destPos, float modifier)
-{
-	return currentPos + (destPos - currentPos) * modifier;
-}
-
 float GameEntity::getRotation() const
 {
 	return this->sprite.getRotation();
