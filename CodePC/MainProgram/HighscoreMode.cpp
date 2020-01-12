@@ -71,7 +71,7 @@ HighscoreMode::HighscoreMode()
 		std::cout << nameArr[i] << " : " << scoreArr[i] << std::endl;
 	}
 
-	for (int i = 0; i < CAPACITY; i++)
+	for (int i = 0; i < CAPACITY && i < nrOf; i++)
 	{
 		names[i].changeText(nameArr[i] + " : " + std::to_string((int)scoreArr[i]));
 		names[i].setCharacterSize(20);
@@ -198,7 +198,7 @@ State HighscoreMode::update()
 void HighscoreMode::render()
 {
 	window.clear();
-	for (int i = 0; i < CAPACITY; i++)
+	for (int i = 0; i < CAPACITY && i < nrOf; i++)
 	{
 		window.draw(names[i].getText());
 	}
