@@ -27,11 +27,12 @@ Game::Game()
 	ballArr = new Ball * [capacity] {nullptr};
 	deathArr = new Ball * [capacity] {nullptr};
 	colHand = new CollisionHandler(posHand);
-	uIHand.setTextPosition(sf::Vector2f(1700, 100));
-	uIHand.setCharacterSize(30);
+	livesText.setTextPosition(sf::Vector2f(1700, 100));
+	livesText.setCharacterSize(30);
+	scoreText.setTextPosition(sf::Vector2f(1700, 150));
+	scoreText.setCharacterSize(30);
 	for (int i = 0; i < 50; i++)
 	{
-		
 		ballArr[i] = new Ball();
 		if (i != 0)
 		{
@@ -39,7 +40,6 @@ Game::Game()
 		}
 		ballArr[i]->setNewDest(posHand->getDestPos(ballArr[i]->getReachedDests()));
 		nrOfBalls++;
-
 	}
 	playerBall = new Ball();
 	player->recieveBall(playerBall);
@@ -84,6 +84,9 @@ State Game::update()
 			if (nrOfBalls <= 0 && player->getLives() > 0)
 			{
 				state = State::GAME_WON;
+				currentScoreOut.open("../datafiles/currentscore.txt");
+				currentScoreOut << player->getScore();
+				currentScoreOut.close();
 			}
 			else if (player->getLives() > 0)
 			{
@@ -105,6 +108,7 @@ State Game::update()
 					{
 
 						colHand->insertBall(playerBall, ballArr, nrOfBalls, collidedI);
+						player->increaseScore(40 * colHand->colourCheck(ballArr, nrOfBalls, collidedI));
 						playerCollided = true;
 						moving = false;
 						playerBall = new Ball();
@@ -150,12 +154,15 @@ State Game::update()
 
 					posHand->setCurrentPos(i, ballArr[i]->getPosition());
 				}
-				uIHand.changeText("Lives: " + std::to_string(player->getLives()));
-
+				livesText.changeText("Lives: " + std::to_string(player->getLives()));
+				scoreText.changeText("Score: " + std::to_string(player->getScore()));
 			}
 			else
 			{
 				state = State::GAME_OVER;
+				currentScoreOut.open("../datafiles/currentscore.txt");
+				currentScoreOut << player->getScore();
+				currentScoreOut.close();
 			}
 			if (nrOfBalls == capacity)
 			{
@@ -191,7 +198,8 @@ void Game::render()
 	{
 		window.draw(*playerBall);
 	}
-	window.draw(uIHand.getText());
+	window.draw(livesText.getText());
+	window.draw(scoreText.getText());
 	window.display();
 }
 

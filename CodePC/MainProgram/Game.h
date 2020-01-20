@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <fstream>
 #include "Player.h"
 #include "Ball.h"
 #include "GameState.h"
@@ -20,8 +21,9 @@ private:
 	PositionHandler* posHand;
 	CollisionHandler* colHand;
 	SoundHandler soundHand;
-	UIHandler uIHand;
-
+	UIHandler livesText;
+	UIHandler scoreText;
+	std::ofstream currentScoreOut;
 	int nrOfBalls;
 	int nrOfDeathBalls;
 	int capacity;

@@ -9,12 +9,15 @@ class Player :
 private:
 	Ball* shootBall;
 	int lives;
+	int score;
 	sf::Mouse mouse;
 	sf::Vector2f offset;
 
 public:
 	Player(int xSize, int ySize);
 	int getLives() const;
+	int getScore() const;
+	void increaseScore(int increase);
 	void decreaseLives();
 	void recieveBall(Ball* ballPtr);
 	void releaseBall();

@@ -4,6 +4,7 @@ Player::Player( int xSize, int ySize):GameEntity("player.png")
 {
 	this->shootBall = nullptr;
 	this->lives = 30;
+	this->score = 0;
 	this->offset = getPosition() - (sf::Vector2f)mouse.getPosition();
 	this->setOrigin(getBounds().left + getBounds().width / 2, getBounds().top + getBounds().height / 2);
 	this->setPosition(xSize / 2, ySize / 2);
@@ -12,6 +13,16 @@ Player::Player( int xSize, int ySize):GameEntity("player.png")
 int Player::getLives() const
 {
 	return lives;
+}
+
+int Player::getScore() const
+{
+	return this->score;
+}
+
+void Player::increaseScore(int increase)
+{
+	this->score += increase;
 }
 
 void Player::decreaseLives()

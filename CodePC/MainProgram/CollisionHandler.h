@@ -7,12 +7,12 @@ private:
 	PositionHandler* posHand;
 	int colourBack;
 	int colourForward;
-	void colourDestroy(Ball**& arr, int& nrOf, int collidedIndex, int forward, int back);
+	void colourDestroy(Ball** arr, int& nrOf, int collidedIndex, int forward, int back);
 public:
 	CollisionHandler(PositionHandler *posHand);
-	int checkBallCollision(Ball *&collidedBall, Ball **&target, int &nrOf);
-	void insertBall(Ball*& collidedBall, Ball**& target, int &nrOf, int collidedIndex);
-	void colourCheck(Ball**& arr, int& nrOf, int collidedIndex);
+	int checkBallCollision(Ball *collidedBall, Ball **target, int nrOf);
+	void insertBall(Ball* collidedBall, Ball** target, int &nrOf, int collidedIndex);
+	int colourCheck(Ball** arr, int& nrOf, int collidedIndex);
 
 };
 

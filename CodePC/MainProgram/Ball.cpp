@@ -82,6 +82,21 @@ void Ball::collisionSetPos(sf::Vector2f newPos)
 
 }
 
+bool Ball::checkCollision(const Ball& other)
+{
+
+	return this->getBounds().intersects(other.getBounds());
+}
+
+void Ball::getAttrOfOtherBall(const Ball& other)
+{
+	this->movingSpeed = other.movingSpeed;
+	this->setPosition(other.getPosition());
+	this->reachedDests = other.reachedDests;
+	this->currentDest = other.currentDest;
+
+}
+
 
 bool Ball::checkReached()
 {

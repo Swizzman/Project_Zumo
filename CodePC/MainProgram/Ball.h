@@ -22,7 +22,8 @@ public:
 	void setReachedDests(int reached);
 	void collisionMove();
 	void collisionSetPos(sf::Vector2f newPos);
-
+	bool checkCollision(const Ball& other);
+	void getAttrOfOtherBall(const Ball& other);
 	bool checkReached();
 	void moveTowardsDest();
 	int getMovingSpeed() const;
