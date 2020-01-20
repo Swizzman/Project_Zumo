@@ -1,6 +1,6 @@
-#include "HighscoreMode.h"
+#include "HighscoreInputMode.h"
 
-void HighscoreMode::sort(double arr[], std::string strArr[], int nrOf)
+void HighscoreInputMode::sort(double arr[], std::string strArr[], int nrOf)
 {
 	for (int i = 1; i < nrOf; i++)
 	{
@@ -29,7 +29,7 @@ void HighscoreMode::sort(double arr[], std::string strArr[], int nrOf)
 	}
 }
 
-void HighscoreMode::swapThem(double& item1, std::string& name, double& item2, std::string& name2)
+void HighscoreInputMode::swapThem(double& item1, std::string& name, double& item2, std::string& name2)
 {
 	int temp = item1;
 	std::string nameTemp = name;
@@ -39,12 +39,11 @@ void HighscoreMode::swapThem(double& item1, std::string& name, double& item2, st
 	name2 = nameTemp;
 }
 
-HighscoreMode::HighscoreMode()
+HighscoreInputMode::HighscoreInputMode()
 {
 	playerInput = "";
-	playerInputScore = "";
+	currentPlayerScore = "";
 	nameInputDone = false;
-	scoreInputDone = false;
 	scoresIn.open("../datafiles/highscores.txt");
 	namesIn.open("../datafiles/names.txt");
 	namesIn.imbue(std::locale("swedish"));
@@ -66,11 +65,6 @@ HighscoreMode::HighscoreMode()
 		std::getline(namesIn, nameArr[i]);
 	}
 	sort(scoreArr, nameArr, nrOf);
-	for (int i = 0; i < nrOf; i++)
-	{
-		std::cout << nameArr[i] << " : " << scoreArr[i] << std::endl;
-	}
-
 	for (int i = 0; i < CAPACITY && i < nrOf; i++)
 	{
 		names[i].changeText(nameArr[i] + " : " + std::to_string((int)scoreArr[i]));
@@ -81,15 +75,13 @@ HighscoreMode::HighscoreMode()
 	textDesc.changeText("Please Input your name here: ");
 	textDesc.setTextPosition(sf::Vector2f(window.getSize().x / 2, 800));
 	playerText.setTextPosition(sf::Vector2f(window.getSize().x / 2 + textDesc.getTextSize().x, 800));
-	scoreDesc.changeText("Please input your score here (plz be honest): ");
-	scoreDesc.setTextPosition(sf::Vector2f(WIDTH / 2, 900));
-	playerScore.setTextPosition(sf::Vector2f(WIDTH / 2 + scoreDesc.getTextSize().x, 900));
+
 	namesIn.close();
 	scoresIn.close();
 
 }
 
-HighscoreMode::~HighscoreMode()
+HighscoreInputMode::~HighscoreInputMode()
 {
 
 	delete[]scoreArr;
@@ -97,7 +89,7 @@ HighscoreMode::~HighscoreMode()
 }
 
 
-void HighscoreMode::handleEvents()
+void HighscoreInputMode::handleEvents()
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -109,7 +101,7 @@ void HighscoreMode::handleEvents()
 
 		if (event.type == sf::Event::TextEntered)
 		{
-			if (!nameInputDone && !scoreInputDone)
+			if (!nameInputDone)
 			{
 				if (event.text.unicode == 8)
 				{
@@ -131,43 +123,25 @@ void HighscoreMode::handleEvents()
 				}
 			}
 
-			else if (nameInputDone && !scoreInputDone)
-			{
-				if (event.text.unicode == 8)
-				{
-					if (!playerInput.empty())
-					{
-						playerInputScore.pop_back();
-					}
-					playerScore.changeText(playerInputScore);
-				}
-				else if (event.text.unicode != 13)
-				{
-					playerInputScore += event.text.unicode;
-					playerScore.changeText(playerInputScore);
-				}
-				else
-				{
-					scoreInputDone = true;
-				}
-			}
+
 
 
 		}
 	}
 }
 
-State HighscoreMode::update()
+State HighscoreInputMode::update()
 {
 	State state = State::NO_CHANGE;
-	if (nameInputDone && scoreInputDone)
+	if (nameInputDone)
 	{
 		namesOut.open("../datafiles/names.txt", std::ios::app);
 		scoresOut.open("../datafiles/highscores.txt", std::ios::app);
-
+		scoresIn.open("../datafiles/currentscore.txt");
+		std::getline(scoresIn, currentPlayerScore);
 		std::string temp = playerInput;
 		namesOut << temp;
-		scoresOut << playerInputScore;
+		scoresOut << currentPlayerScore;
 		state = State::MENU;
 		namesOut.close();
 		scoresOut.close();
@@ -180,7 +154,7 @@ State HighscoreMode::update()
 		{
 			if (i == nrOf - 1)
 			{
-				scoresOut << "\n" << playerInputScore;
+				scoresOut << "\n" << currentPlayerScore;
 				namesOut << "\n" << playerInput;
 			}
 			else
@@ -191,11 +165,12 @@ State HighscoreMode::update()
 		}
 		namesOut.close();
 		scoresOut.close();
+		scoresIn.close();
 	}
 	return state;
 }
 
-void HighscoreMode::render()
+void HighscoreInputMode::render()
 {
 	window.clear();
 	for (int i = 0; i < CAPACITY && i < nrOf; i++)
@@ -204,11 +179,6 @@ void HighscoreMode::render()
 	}
 	window.draw(textDesc.getText());
 	window.draw(playerText.getText());
-	if (nameInputDone)
-	{
-		window.draw(scoreDesc.getText());
-		window.draw(playerScore.getText());
-	}
 	window.draw(scoresText.getText());
 	window.display();
 

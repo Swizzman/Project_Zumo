@@ -57,7 +57,10 @@
     <ClCompile Include="Logo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HighscoreMode.cpp">
+    <ClCompile Include="HighscoreInputMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HighscoreViewMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,7 +107,10 @@
     <ClInclude Include="Logo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HighscoreMode.h">
+    <ClInclude Include="HighscoreInputMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighscoreViewMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

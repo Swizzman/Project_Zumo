@@ -39,7 +39,7 @@ State GameWonMode::update()
 	State state = State::NO_CHANGE;
 	if (done)
 	{
-		state = State::MENU;
+		state = State::HIGHSCOREINPUT;
 	}
 	return state;
 

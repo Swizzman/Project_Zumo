@@ -123,7 +123,7 @@ State MenuMode::update()
 					state = State::GAME;
 					break;
 				case 1:
-					state = State::HIGHSCORE;
+					state = State::HIGHSCOREVIEW;
 					break;
 				case 2:
 					state = State::EXIT;

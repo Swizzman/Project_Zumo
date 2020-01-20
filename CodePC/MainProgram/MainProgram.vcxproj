@@ -26,7 +26,8 @@
     <ClCompile Include="GameOverMode.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameWonMode.cpp" />
-    <ClCompile Include="HighscoreMode.cpp" />
+    <ClCompile Include="HighscoreInputMode.cpp" />
+    <ClCompile Include="HighscoreViewMode.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -43,7 +44,8 @@
     <ClInclude Include="GameOverMode.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameWonMode.h" />
-    <ClInclude Include="HighscoreMode.h" />
+    <ClInclude Include="HighscoreInputMode.h" />
+    <ClInclude Include="HighscoreViewMode.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PositionHandler.h" />

@@ -3,7 +3,8 @@
 #include "MenuMode.h"
 #include "GameOverMode.h"
 #include "GameWonMode.h"
-#include "HighscoreMode.h"
+#include "HighscoreInputMode.h"
+#include "HighscoreViewMode.h"
 
 
 #ifdef _DEBUG
@@ -38,9 +39,13 @@ int main()
 			delete current;
 			current = new Game();
 			break;
-		case State::HIGHSCORE:
+		case State::HIGHSCOREINPUT:
 			delete current;
-			current = new HighscoreMode();
+			current = new HighscoreInputMode();
+			break;
+		case State::HIGHSCOREVIEW:
+			delete current;
+			current = new HighscoreViewMode();
 			break;
 		case State::MENU:
 			delete current;
