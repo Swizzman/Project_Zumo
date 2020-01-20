@@ -103,33 +103,6 @@ bool Ball::checkReached()
 	return reachedCurrentDest;
 }
 
-void Ball::moveTowardsDest()
-{
-	this->xSpeed = this->movingSpeed;
-	this->ySpeed = this->movingSpeed;
-	if (getPosition().x == this->currentDest.x)
-	{
-		this->xSpeed = 0;
-	}
-	else if (getPosition().x > this->currentDest.x)
-	{
-		this->xSpeed = -this->movingSpeed;
-	}
-	if (getPosition().y == this->currentDest.y)
-	{
-		this->ySpeed = 0;
-	}
-	else if (getPosition().y > this->currentDest.y)
-	{
-		this->ySpeed = -this->movingSpeed;
-	}
-	move(this->xSpeed, this->ySpeed);
-	if (getPosition() == this->currentDest)
-	{
-		this->reachedCurrentDest = true;
-	}
-}
-
 int Ball::getMovingSpeed() const
 {
 	return this->movingSpeed;
@@ -157,4 +130,31 @@ int Ball::getYSpeed() const
 
 Ball::~Ball()
 {
+}
+
+void Ball::moveSpecific()
+{
+	this->xSpeed = this->movingSpeed;
+	this->ySpeed = this->movingSpeed;
+	if (getPosition().x == this->currentDest.x)
+	{
+		this->xSpeed = 0;
+	}
+	else if (getPosition().x > this->currentDest.x)
+	{
+		this->xSpeed = -this->movingSpeed;
+	}
+	if (getPosition().y == this->currentDest.y)
+	{
+		this->ySpeed = 0;
+	}
+	else if (getPosition().y > this->currentDest.y)
+	{
+		this->ySpeed = -this->movingSpeed;
+	}
+	move(this->xSpeed, this->ySpeed);
+	if (getPosition() == this->currentDest)
+	{
+		this->reachedCurrentDest = true;
+	}
 }

@@ -29,15 +29,12 @@ sf::FloatRect GameEntity::getBounds() const
 	return this->sprite.getGlobalBounds();
 }
 
-void GameEntity::move(int speedX, int speedY)
+void GameEntity::move(float x, float y)
 {
-	this->sprite.move(speedX, speedY);
+	this->sprite.move(x, y);
 }
 
-void GameEntity::move(sf::Vector2f dir, int speed)
-{
-	this->sprite.move(dir.x * speed, dir.y * speed);
-}
+
 
 void GameEntity::setOrigin(int x, int y)
 {

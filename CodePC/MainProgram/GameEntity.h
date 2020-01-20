@@ -15,8 +15,8 @@ public:
 	void setTextureRect(sf::IntRect intRect);
 	sf::Vector2u getTextureSize() const;
 	sf::FloatRect getBounds() const;
-	void move(int speedX, int speedY);
-	void move(sf::Vector2f dir, int speed);
+	void move(float x, float y);
+	virtual void moveSpecific() = 0;
 	void setOrigin(int x, int y);
 	sf::Vector2f getOrigin() const;
 	void setPosition(int x, int y);

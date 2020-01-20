@@ -30,8 +30,6 @@ private:
 	bool moving;
 	bool playerCollided;
 	int collidedI;
-	sf::Vector2f mousePos;
-	sf::Vector2f dir;
 	sf::Clock clock;
 	sf::Time timePerFrame;
 	sf::Time elapsedTimeSinceLastUpdate;

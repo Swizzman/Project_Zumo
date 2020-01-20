@@ -20,7 +20,6 @@ Game::Game()
 	this->capacity = 50;
 	this->nrOfBalls = 0;
 	this->collidedI = 0;
-	this->mousePos = sf::Vector2f(0, 0);
 	this->playerCollided = false;
 	posHand = new PositionHandler();
 	player = new Player(WIDTH, HEIGHT);
@@ -31,7 +30,7 @@ Game::Game()
 	livesText.setCharacterSize(30);
 	scoreText.setTextPosition(sf::Vector2f(1700, 150));
 	scoreText.setCharacterSize(30);
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 49; i++)
 	{
 		ballArr[i] = new Ball();
 		if (i != 0)
@@ -42,7 +41,7 @@ Game::Game()
 		nrOfBalls++;
 	}
 	playerBall = new Ball();
-	player->recieveBall(playerBall);
+	player->receiveBall(playerBall);
 	elapsedTimeSinceLastUpdate = sf::Time::Zero;
 	timePerFrame = sf::seconds(1 / 60.f);
 }
@@ -80,7 +79,10 @@ State Game::update()
 		{
 
 			elapsedTimeSinceLastUpdate -= timePerFrame;
-
+			if (nrOfBalls == capacity)
+			{
+				expand();
+			}
 			if (nrOfBalls <= 0 && player->getLives() > 0)
 			{
 				state = State::GAME_WON;
@@ -93,26 +95,24 @@ State Game::update()
 				player->rotate(window);
 				if (player->shoot() && !moving)
 				{
-					sf::Vector2f dist = (sf::Vector2f)player->getMousePos() - player->getPosition();
-					float magni = sqrt(pow(dist.x, 2) + pow(dist.y, 2));
-					dir = sf::Vector2f(dist.x / magni, dist.y / magni);
+					player->setDirection();
 					moving = true;
 					playerCollided = false;
 					soundHand.shoot();
 				}
 				if (moving)
 				{
-					playerBall->move(dir, playerBall->getMovingSpeed());
+					player->moveSpecific();
 					collidedI = colHand->checkBallCollision(playerBall, ballArr, nrOfBalls);
 					if (collidedI != -1 && !playerCollided)
 					{
-
+						player->releaseBall();
 						colHand->insertBall(playerBall, ballArr, nrOfBalls, collidedI);
 						player->increaseScore(40 * colHand->colourCheck(ballArr, nrOfBalls, collidedI));
 						playerCollided = true;
 						moving = false;
 						playerBall = new Ball();
-						player->recieveBall(playerBall);
+						player->receiveBall(playerBall);
 						soundHand.collision();
 
 
@@ -125,13 +125,13 @@ State Game::update()
 				{
 					delete playerBall;
 					playerBall = new Ball();
-					player->recieveBall(playerBall);
+					player->receiveBall(playerBall);
 					moving = false;
 				}
 				for (int i = 0; i < nrOfBalls; i++)
 				{
 					
-					ballArr[i]->moveTowardsDest();
+					ballArr[i]->moveSpecific();
 					if (ballArr[i]->checkReached())
 					{
 						ballArr[i]->increaseReachedDests();
@@ -164,10 +164,7 @@ State Game::update()
 				currentScoreOut << player->getScore();
 				currentScoreOut.close();
 			}
-			if (nrOfBalls == capacity)
-			{
-				expand();
-			}
+
 			render();
 		}
 		return state;

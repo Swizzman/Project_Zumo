@@ -25,12 +25,14 @@ public:
 	bool checkCollision(const Ball& other);
 	void getAttrOfOtherBall(const Ball& other);
 	bool checkReached();
-	void moveTowardsDest();
 	int getMovingSpeed() const;
 	void setMovingSpeed(int newSpeed);
 	int getColour() const;
 	int getXSpeed() const;
 	int getYSpeed() const;
 	virtual ~Ball();
+
+	// Inherited via GameEntity
+	virtual void moveSpecific() override;
 };
 
